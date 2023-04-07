@@ -5,5 +5,46 @@
 }
 
 body {
-  font-family: 'Roboto', Arial, Helvetica, sans-serif
+  font-family: 'Roboto', Arial, Helvetica, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+#calculator-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  height: 650px;
+  background-color: #AAAAAA;
+  padding: 1em;
+}
+
+.calculator-display {
+  height: 8.5em;
+  background-color: rgb(255, 255, 255);
+}
+
+.clear-delete-buttons {
+  display: flex;
+}
+
+.clear, .delete {
+  flex: 1;
+  height: 2.5em;
+}
+
+button {
+  font-size: 2em;
+}
+
+.numbers-and-operators {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.numbers-and-operators button {
+  width: 25%;
+  height: 3em;
 }
