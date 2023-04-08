@@ -1,6 +1,10 @@
-let num1 = prompt("First number:");
-let operator = prompt("Operator:");
-let num2 = prompt("Second number:");
+const numberButtons = document.querySelectorAll(".number");
+const calculatorDisplay = document.getElementById("display-value");
+
+// let num1 = prompt("First number:");
+// let operator = prompt("Operator:");
+// let num2 = prompt("Second number:");
+let displayValue = 0;
 
 function operate(num1, num2, operator) {
     if (operator === "+") {
@@ -32,4 +36,11 @@ function divide(a, b) {
     return a / b;
 }
 
-console.log(operate(num1, num2, operator));
+function populateDisplay(e) {
+    calculatorDisplay.textContent += e.target.textContent;
+    displayValue = calculatorDisplay.textContent;
+}
+
+numberButtons.forEach((button) => {
+    button.addEventListener("click", populateDisplay);
+});
