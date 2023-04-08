@@ -10,20 +10,20 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
+  background-color: #f8f9fa;;
 }
 
 #calculator-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  height: 650px;
+  height: 715px;
+  width: 500px;
   background-color: #AAAAAA;
   padding: 1em;
 }
 
 .calculator-display {
-  height: 8.5em;
-  background-color: rgb(255, 255, 255);
+  height: 9em;
+  margin-bottom: 1.5em;
+  background-color: #f8f9fa;
 }
 
 .clear-delete-buttons {
@@ -45,6 +45,38 @@ button {
 }
 
 .numbers-and-operators button {
-  width: 25%;
+  flex: 1 1 20%;
   height: 3em;
+}
+
+.numbers-and-operators, .clear-delete-buttons {
+  margin-top: 0.8em;
+  gap: 0.8em;
+}
+
+#calculator-container, 
+.numbers-and-operators button, 
+.clear-delete-buttons button,
+.calculator-display {
+  border: 2px solid #212529;
+  border-radius: 1rem;
+}
+
+button.clear {
+  background-color: #4a95c3;
+}
+
+button.delete {
+  background-color: #f8888c;
+}
+
+.division, 
+.multiplication, 
+.subtraction, 
+.addition {
+  background-color: #adb5bd;
+}
+
+button:hover {
+  background-color: #6c757d;
 }
