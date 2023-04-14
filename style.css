@@ -21,13 +21,22 @@ body {
 }
 
 .calculator-display {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-evenly;
   height: 9em;
   margin-bottom: 1.5em;
+  padding-right: 1.2em;
   background-color: #f8f9fa;
 }
 
-.calculator-display p {
-  font-size: 2.5em;
+.calculator-display #current-operation {
+  font-size: 2em;
+}
+
+.calculator-display #display-value {
+  font-size: 3.5em;
 }
 
 .clear-delete-buttons {
