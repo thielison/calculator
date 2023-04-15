@@ -5,24 +5,33 @@ const numberButtons = document.querySelectorAll(".number");
 const operatorButtons = document.querySelectorAll(".operator");
 const equalsButton = document.querySelector(".equals");
 
-let operand1 = null;
+let operand1 = 0;
 let operator = "";
-let operand2 = null;
+let operand2 = 0;
 let clearOnNextNumber = false;
-let previousOperationResult = null;
+let previousOperationResult = 0;
+let result = 0;
 
 function operate(num1, num2, operator) {
-    // switch case
-    if (operator === "+") {
-        return add(num1, num2);
-    } else if (operator === "-") {
-        return subtract(num1, num2);
-    } else if (operator === "x") {
-        return multiply(num1, num2);
-    } else if (operator === "/") {
-        return divide(num1, num2);
+    switch (true) {
+        case operator === "+":
+            result = add(num1, num2);
+            break;
+        case operator === "-":
+            result = subtract(num1, num2);
+            break;
+        case operator === "x":
+            result = multiply(num1, num2);
+            break;
+        case operator === "/":
+            result = divide(num1, num2);
+            break;
+    }
+
+    if (result.toString().length > 14) {
+        return parseFloat(result.toFixed(14));
     } else {
-        return "Not a valid operator!";
+        return result;
     }
 }
 
