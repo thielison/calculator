@@ -4,6 +4,7 @@ const currentDisplayValue = document.getElementById("display-value");
 const numberButtons = document.querySelectorAll(".number");
 const operatorButtons = document.querySelectorAll(".operator");
 const equalsButton = document.querySelector(".equals");
+const dotButton = document.querySelector(".dot");
 
 const clearButton = document.querySelector(".clear");
 
@@ -13,6 +14,7 @@ let operand2 = 0;
 let clearOnNextNumber = false;
 let previousOperationResult = 0;
 let result = 0;
+let dot = "";
 
 function operate(num1, num2, operator) {
     switch (true) {
@@ -116,3 +118,12 @@ equalsButton.addEventListener("click", () => {
 });
 
 clearButton.addEventListener("click", clearCalculator);
+
+dotButton.addEventListener("click", () => {
+    if (currentDisplayValue.textContent.toString().includes(".")) {
+        dotButton.disabled = true;
+    } else {
+        currentDisplayValue.textContent += ".";
+    }
+    dotButton.disabled = false;
+});
