@@ -27,14 +27,17 @@ function operate(num1, num2, operator) {
             break;
         case operator === "/":
             if (num2 === 0) {
-                return "Error: NaNfinity!";
+                return "Error: Infinity!";
             }
             result = divide(num1, num2);
-            break;
     }
 
     if (result.toString().length > 14) {
-        return parseFloat(result.toFixed(14));
+        if (Number.isInteger(result)) {
+            return "Too complex!";
+        } else {
+            return result.toFixed(12);
+        }
     } else {
         return result;
     }
