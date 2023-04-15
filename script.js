@@ -1,5 +1,5 @@
 const currentOperation = document.getElementById("current-operation");
-const numberInput = document.getElementById("display-value");
+const currentDisplayValue = document.getElementById("display-value");
 
 const numberButtons = document.querySelectorAll(".number");
 const operatorButtons = document.querySelectorAll(".operator");
@@ -8,8 +8,8 @@ const equalsButton = document.querySelector(".equals");
 let operand1 = null;
 let operator = "";
 let operand2 = null;
-// let currentDisplayValue = null;
 let clearOnNextNumber = false;
+let previousOperationResult = null;
 
 function operate(num1, num2, operator) {
     // switch case
@@ -45,26 +45,32 @@ function divide(a, b) {
 function populateDisplay(e) {
     if (!operator) {
         clearOnNextNumber = true;
-        numberInput.textContent += e.target.textContent;
-        operand1 = Number(numberInput.textContent);
-
-        console.log("OPERAND 1 = " + operand1);
+        currentDisplayValue.textContent += e.target.textContent;
+        operand1 = Number(currentDisplayValue.textContent);
     } else {
         if (clearOnNextNumber) {
             clearOnNextNumber = false;
-            numberInput.textContent = "";
+            currentDisplayValue.textContent = "";
         }
 
-        numberInput.textContent += e.target.textContent;
-        operand2 = Number(numberInput.textContent);
-
-        console.log("OPERAND 2 = " + operand2);
+        currentDisplayValue.textContent += e.target.textContent;
+        operand2 = Number(currentDisplayValue.textContent);
     }
 }
 
-function initializeOperation(e) {
+function handleOperatorClick(e) {
+    if (operator !== "" && operand2 !== null) {
+        previousOperationResult = operate(operand1, operand2, operator);
+        operand1 = previousOperationResult;
+        operand2 = null;
+        operator = e.target.id;
+        currentDisplayValue.textContent = operand1;
+        currentOperation.textContent = `${operand1} ${operator}`;
+    } else {
+        currentOperation.textContent = `${operand1} ${e.target.textContent}`;
+    }
     operator = e.target.id;
-    currentOperation.textContent = `${operand1} ${operator}`;
+    clearOnNextNumber = true;
 }
 
 numberButtons.forEach((button) => {
@@ -72,10 +78,11 @@ numberButtons.forEach((button) => {
 });
 
 operatorButtons.forEach((button) => {
-    button.addEventListener("click", initializeOperation);
+    button.addEventListener("click", handleOperatorClick);
 });
 
 equalsButton.addEventListener("click", () => {
     currentOperation.textContent = `${operand1} ${operator} ${operand2} =`;
-    numberInput.textContent = operate(operand1, operand2, operator);
+    previousOperationResult = operate(operand1, operand2, operator);
+    currentDisplayValue.textContent = previousOperationResult;
 });
