@@ -5,6 +5,8 @@ const numberButtons = document.querySelectorAll(".number");
 const operatorButtons = document.querySelectorAll(".operator");
 const equalsButton = document.querySelector(".equals");
 
+const clearButton = document.querySelector(".clear");
+
 let operand1 = 0;
 let operator = "";
 let operand2 = 0;
@@ -82,6 +84,17 @@ function handleOperatorClick(e) {
     clearOnNextNumber = true;
 }
 
+function clearCalculator() {
+    currentOperation.textContent = "";
+    currentDisplayValue.textContent = "";
+    operand1 = 0;
+    operator = "";
+    operand2 = 0;
+    clearOnNextNumber = false;
+    previousOperationResult = 0;
+    result = 0;
+}
+
 numberButtons.forEach((button) => {
     button.addEventListener("click", populateDisplay);
 });
@@ -95,3 +108,5 @@ equalsButton.addEventListener("click", () => {
     previousOperationResult = operate(operand1, operand2, operator);
     currentDisplayValue.textContent = previousOperationResult;
 });
+
+clearButton.addEventListener("click", clearCalculator);
