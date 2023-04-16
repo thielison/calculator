@@ -7,6 +7,7 @@ const equalsButton = document.querySelector(".equals");
 const dotButton = document.querySelector(".dot");
 
 const clearButton = document.querySelector(".clear");
+const deleteButton = document.querySelector(".delete");
 
 let operand1 = 0;
 let operator = "";
@@ -103,6 +104,23 @@ function clearCalculator() {
     result = 0;
 }
 
+function deleteLastInput() {
+    if (currentDisplayValue.textContent.length === 0) {
+        return;
+    }
+
+    currentDisplayValue.textContent = currentDisplayValue.textContent.slice(0, -1);
+
+    if (operand1 && !operand2) {
+        operand1 = Number(currentDisplayValue.textContent);
+    }
+
+    if (operand1 && operand2) {
+        currentOperation.textContent = `${operand1} ${operator}`;
+        operand2 = Number(currentDisplayValue.textContent);
+    }
+}
+
 numberButtons.forEach((button) => {
     button.addEventListener("click", populateDisplay);
 });
@@ -112,12 +130,13 @@ operatorButtons.forEach((button) => {
 });
 
 equalsButton.addEventListener("click", () => {
+    if (!operand1 || !operand2) {
+        return;
+    }
     currentOperation.textContent = `${operand1} ${operator} ${operand2} =`;
     previousOperationResult = operate(operand1, operand2, operator);
     currentDisplayValue.textContent = previousOperationResult;
 });
-
-clearButton.addEventListener("click", clearCalculator);
 
 dotButton.addEventListener("click", () => {
     if (currentDisplayValue.textContent.toString().includes(".")) {
@@ -127,3 +146,7 @@ dotButton.addEventListener("click", () => {
     }
     dotButton.disabled = false;
 });
+
+clearButton.addEventListener("click", clearCalculator);
+
+deleteButton.addEventListener("click", deleteLastInput);
