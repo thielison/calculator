@@ -9,6 +9,8 @@ const dotButton = document.querySelector(".dot");
 const clearButton = document.querySelector(".clear");
 const deleteButton = document.querySelector(".delete");
 
+const allowedKeys = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "+", "-", "*", "/", ".", ",", "Enter", "Backspace", "Delete"];
+
 let operand1 = 0;
 let operator = "";
 let operand2 = 0;
@@ -121,11 +123,11 @@ function deleteLastInput() {
     }
 }
 
-numberButtons.forEach((button) => {
+numberButtons.forEach(button => {
     button.addEventListener("click", populateDisplay);
 });
 
-operatorButtons.forEach((button) => {
+operatorButtons.forEach(button => {
     button.addEventListener("click", handleOperatorClick);
 });
 
@@ -150,3 +152,42 @@ dotButton.addEventListener("click", () => {
 clearButton.addEventListener("click", clearCalculator);
 
 deleteButton.addEventListener("click", deleteLastInput);
+
+// Add support for keyboard
+document.addEventListener("keydown", event => {
+    let keyPressed = allowedKeys.filter(key => key == event.key);
+
+    if (keyPressed == "") {
+        return;
+    }
+
+    const allCalculatorButtons = document.querySelectorAll("button");
+
+    allCalculatorButtons.forEach(btn => {
+        if (btn.textContent == keyPressed[0] || btn.id == keyPressed[0]) {
+            btn.click();
+        }
+    });
+
+    switch (true) {
+        case keyPressed[0] == "Enter":
+            const equalsBtn = document.querySelector(".equals");
+            equalsBtn.click();
+            break;
+        case keyPressed[0] == "," || keyPressed[0] == ".":
+            const dotBtn = document.querySelector(".dot");
+            dotBtn.click();
+            break;
+        case keyPressed[0] == "*":
+            const multButton = document.querySelector(".multiplication");
+            multButton.click();
+            break;
+        case keyPressed[0] == "Backspace":
+            const bkpBtn = document.querySelector(".delete");
+            bkpBtn.click();
+            break;
+        case keyPressed[0] == "Delete":
+            const clearBtn = document.querySelector(".clear");
+            clearBtn.click();
+    }
+});
